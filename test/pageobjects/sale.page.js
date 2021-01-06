@@ -60,7 +60,7 @@ class LoginPage extends Page {
     }
 
     discountCalculator(category) {
-        let productBraand;
+        let productBrand;
         let productName;
         let nowPrice;
         let wasPrice;
@@ -72,17 +72,19 @@ class LoginPage extends Page {
             product.waitForDisplayed();
             product.scrollIntoView();
             let productText = product.getText();
+            let productHtml = product.getHTML();
+            // console.log(productHtml)
             if (productText.includes('Was') && productText.includes('Now')) {
                 // if (productText.includes('Now')) {
-                    if (productText.includes('brand')) {
-                        productBraand = product.$('span[data-automation=product-brand]').getText();
+                    if (productHtml.includes('brand')) {
+                        productBrand = product.$('span[data-automation=product-brand]').getText();
                     }
                     productName = product.$('span[data-automation=product-name]').getText();
                     wasPrice = this.getWasPrice(product);
                     nowPrice = this.getNowPrice(product);
                     percent = (1-(nowPrice/wasPrice))*100;
                     if (60<=percent && percent<70) {
-                        let name = productBraand + ' ' + productName;
+                        let name = productBrand + ' ' + productName;
                         discountRangeOne.push(name);
                         if (productText.includes('further')) {
                             name = name.split('.').join('').split('/').join('');
@@ -91,7 +93,7 @@ class LoginPage extends Page {
                         }
                     };
                     if (70<=percent && percent<80) {
-                        let name = productBraand + ' ' + productName;
+                        let name = productBrand + ' ' + productName;
                         discountRangeTwo.push(name);
                         // browser.takeScreenshot();
                         name = name.split('.').join('').split('/').join('');
@@ -99,7 +101,7 @@ class LoginPage extends Page {
                         browser.saveScreenshot(filepath);
                     };
                     if (percent>=80) {
-                        let name = productBraand + ' ' + productName;
+                        let name = productBrand + ' ' + productName;
                         discountRangeThree.push(name);
                         // browser.takeScreenshot();
                         name = name.split('.').join('').split('/').join('');
