@@ -15,7 +15,7 @@ module.exports = class Page {
     */
     open (path) {
         browser.maximizeWindow();
-        return browser.url(`https://www.myer.com.au/c/offers/${path}`);
+        return browser.url(`/${path}`);
     }
 
     login() {
