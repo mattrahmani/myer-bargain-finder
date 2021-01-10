@@ -17,14 +17,14 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        // './test/specs/**/*.js',
-        // './test/specs/bargainFinderBeauty.js',
-        './test/specs/bargainFinderToys.js',
-        // './test/specs/bargainFinderEntertainment.js',
-        // './test/specs/bargainFinderHome.js',
-        // './test/specs/bargainFinderKids.js',
-        // './test/specs/bargainFinderMen.js',
-        // './test/specs/bargainFinderWomen.js'
+        './test/specs/**/*.js',
+        // './test/specs/04_bargainFinderBeauty.js',
+        // './test/specs/07_bargainFinderToys.js',
+        // './test/specs/05_bargainFinderEntertainment.js',
+        // './test/specs/03_bargainFinderHome.js',
+        // './test/specs/06_bargainFinderKids.js',
+        // './test/specs/02_bargainFinderMen.js',
+        // './test/specs/01_bargainFinderWomen.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -46,7 +46,7 @@ exports.config = {
     // and 30 processes will get spawned. The property handles how many capabilities
     // from the same test should run tests.
     //
-    maxInstances: 10,
+    maxInstances: 4,
     //
     // If you have trouble getting all important capabilities together, check out the
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
