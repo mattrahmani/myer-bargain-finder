@@ -1,3 +1,4 @@
+const { assert } = require('chai');
 const Page = require('./page');
 
 let discountRangeOne = [];
@@ -13,6 +14,7 @@ class LoginPage extends Page {
     get nextBtn() {return $('a=Next') };
     get pageHeader() {return $('h1.css-1sfahi1')}
     get pageNumberElement() {return $('ol[data-automation="paginateContainer"] li:nth-child(9)')}
+    get totalProductsElement() {return $('span[data-automation=product-total]')}
     /**
      * overwrite specifc options to adapt it to page object
      */
@@ -21,7 +23,7 @@ class LoginPage extends Page {
     }
 
     bargainFinder(category) {
-        let url;
+        let totalProducts =this.getNumber(this.totalProductsElement.getText());
         let count = 1;
         for (let i=0; i<200; i++) {
             this.discountCalculator(category);
@@ -41,6 +43,7 @@ class LoginPage extends Page {
         }
         console.log(category + ' Page ' + count);
         this.printSaleItems(category);
+        assert.equal(totalProducts, items, '=====>>> Some products are missing <<<=====');
     }
 
     printSaleItems(category) {
@@ -129,6 +132,12 @@ class LoginPage extends Page {
         let nowPriceTxt = product.$('p[data-automation=product-price-now] span:nth-child(2)').getText();
         let nowPrice = this.getPrice(nowPriceTxt);
         return nowPrice;
+    }
+
+    getNumber(text) {
+        let numberText = text.split(' ');
+        let textNumber = numberText[0].split(',').join('');
+        return Number(textNumber);
     }
 }
 
