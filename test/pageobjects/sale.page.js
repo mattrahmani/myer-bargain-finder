@@ -90,6 +90,7 @@ class LoginPage extends Page {
                         let name = productBrand + ' ' + productName;
                         discountRangeOne.push(name);
                         if (productText.includes('further')) {
+                            product.$('div[data-automation=product-price]').click();
                             name = name.split('.').join('').split('/').join('');
                             filepath = 'screenshots/60to70/' + name + '.png';
                             browser.saveScreenshot(filepath);
@@ -98,7 +99,7 @@ class LoginPage extends Page {
                     if (70<=percent && percent<80) {
                         let name = productBrand + ' ' + productName;
                         discountRangeTwo.push(name);
-                        // browser.takeScreenshot();
+                        product.$('div[data-automation=product-price]').click();
                         name = name.split('.').join('').split('/').join('');
                         filepath = 'screenshots/70to80/' + name + '.png';
                         browser.saveScreenshot(filepath);
@@ -106,7 +107,7 @@ class LoginPage extends Page {
                     if (percent>=80) {
                         let name = productBrand + ' ' + productName;
                         discountRangeThree.push(name);
-                        // browser.takeScreenshot();
+                        product.$('div[data-automation=product-price]').click();
                         name = name.split('.').join('').split('/').join('');
                         filepath = 'screenshots/over80/' + name + '.png';
                         browser.saveScreenshot(filepath);
