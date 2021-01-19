@@ -41,8 +41,8 @@ class SalePage extends Page {
                 break;
             }
         }
-        console.log(category + ' Page ' + count);
-        this.printSaleItems(category);
+        // console.log(category + ' Page ' + count);
+        // this.printSaleItems(category);
         assert.equal(totalProducts, items, '=====>>> Some products are missing <<<=====');
     }
 
@@ -86,9 +86,9 @@ class SalePage extends Page {
                     wasPrice = this.getWasPrice(product);
                     nowPrice = this.getNowPrice(product);
                     percent = (1-(nowPrice/wasPrice))*100;
-                    if (60<=percent && percent<70) {
+                    if (50<=percent && percent<70) {
                         let name = productBrand + ' ' + productName;
-                        discountRangeOne.push(name);
+                        // discountRangeOne.push(name);
                         if (productText.includes('further')) {
                             product.$('div[data-automation=product-price]').click();
                             name = name.split('.').join('').split('/').join('');
@@ -98,7 +98,7 @@ class SalePage extends Page {
                     };
                     if (70<=percent && percent<80) {
                         let name = productBrand + ' ' + productName;
-                        discountRangeTwo.push(name);
+                        // discountRangeTwo.push(name);
                         product.$('div[data-automation=product-price]').click();
                         name = name.split('.').join('').split('/').join('');
                         filepath = 'screenshots/70to80/' + name + '.png';
@@ -106,7 +106,7 @@ class SalePage extends Page {
                     };
                     if (percent>=80) {
                         let name = productBrand + ' ' + productName;
-                        discountRangeThree.push(name);
+                        // discountRangeThree.push(name);
                         product.$('div[data-automation=product-price]').click();
                         name = name.split('.').join('').split('/').join('');
                         filepath = 'screenshots/over80/' + name + '.png';
