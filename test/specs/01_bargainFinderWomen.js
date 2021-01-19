@@ -9,5 +9,3 @@ describe('Myer bargain finder', () => {
         console.log('=====>>> Women bargains search is finished <<<=====\n')
     });
 });
-
-
