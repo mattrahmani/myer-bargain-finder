@@ -8,7 +8,7 @@ let items = 0;
 /**
  * sub page containing specific selectors and methods for a specific page
  */
-class LoginPage extends Page {
+class SalePage extends Page {
 
     get products() {return $$('li[data-automation=product-grid-item]')}
     get nextBtn() {return $('a=Next') };
@@ -142,4 +142,4 @@ class LoginPage extends Page {
     }
 }
 
-module.exports = new LoginPage();
+module.exports = new SalePage();
