@@ -25,7 +25,7 @@ class SalePage extends Page {
     bargainFinder(category) {
         let totalProducts =this.getNumber(this.totalProductsElement.getText());
         let count = 1;
-        for (let i=0; i<200; i++) {
+        for (let i=0; i<300; i++) {
             this.discountCalculator(category);
             try {
                 if (this.nextBtn.isDisplayed()) {
