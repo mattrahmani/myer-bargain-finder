@@ -17,14 +17,14 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/specs/**/*.js',
+        // './test/specs/**/*.js',
         // './test/specs/04_bargainFinderBeauty.js',
         // './test/specs/07_bargainFinderToys.js',
         // './test/specs/05_bargainFinderEntertainment.js',
         // './test/specs/03_bargainFinderHome.js',
         // './test/specs/06_bargainFinderKids.js',
         // './test/specs/02_bargainFinderMen.js',
-        // './test/specs/01_bargainFinderWomen.js'
+        './test/specs/01_bargainFinderWomen.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -150,6 +150,27 @@ exports.config = {
     // =====
     // Hooks
     // =====
+
+    afterStep: function (test, context, { error, result, duration, passed, retries }) {
+        if (error) {
+          browser.takeScreenshot();
+        }
+      },
+
+    afterTest: function (test, context, { error, result, duration, passed, retries }) {
+        
+        if(passed != true){
+            console.log("###########################   TEST FAILED : "+ test.title +"  ###################################");
+            
+            browser.saveScreenshot("errorScreenshot/"+test.title+" Error.png");
+        }
+
+        if(error == true){
+            console.log("###########################   TEST FAILED : "+ test.title +"  ###################################");
+            
+            browser.saveScreenshot("errorScreenshot/"+test.title+" Error.png");
+        }
+    },
     // WebdriverIO provides several hooks you can use to interfere with the test process in order to enhance
     // it and to build services around it. You can either apply a single function or an array of
     // methods to it. If one of them returns with a promise, WebdriverIO will wait until that promise got
