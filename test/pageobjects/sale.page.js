@@ -16,7 +16,7 @@ class SalePage extends Page {
     get pageNumberElement() {return $('ol[data-automation="paginateContainer"] li:nth-child(9)')}
     get totalProductsElement() {return $('span[data-automation=product-total]')}
     /**
-     * overwrite specifc options to adapt it to page object
+     * overwrite specific options to adapt it to page object
      */
     open (extension) {
         return super.open(extension);
