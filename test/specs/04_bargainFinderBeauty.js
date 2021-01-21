@@ -1,4 +1,4 @@
-const SalePage = require('../pageobjects/sale.page');
+const SalePage = require('../pageObjects/sale.page');
 
 describe('Myer bargain finder', () => {
 
