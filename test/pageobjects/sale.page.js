@@ -70,7 +70,7 @@ class SalePage extends Page {
         let wasPrice;
         let percent;
         let filepath;
-        // this.pageHeader.waitForDisplayed();
+        
         this.products.forEach(product => {
             items+=1;
             product.waitForDisplayed();
@@ -79,7 +79,6 @@ class SalePage extends Page {
             let productHtml = product.getHTML();
             // console.log(productHtml)
             if (productText.includes('Was') && productText.includes('Now')) {
-                // if (productText.includes('Now')) {
                     if (productHtml.includes('brand')) {
                         productBrand = product.$('span[data-automation=product-brand]').getText();
                     }
