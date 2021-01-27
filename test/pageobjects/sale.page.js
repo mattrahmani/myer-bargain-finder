@@ -1,5 +1,6 @@
 const { assert } = require('chai');
 const Page = require('./page');
+const fs = require('fs');
 
 let discountRangeOne = [];
 let discountRangeTwo = [];
@@ -90,27 +91,33 @@ class SalePage extends Page {
                         let name = productBrand + ' ' + productName;
                         // discountRangeOne.push(name);
                         if (productText.includes('further')) {
-                            product.$('div[data-automation=product-price]').click();
                             name = name.split('.').join('').split('/').join('');
                             filepath = 'screenshots/60to70/' + name + '.png';
-                            browser.saveScreenshot(filepath);
+                            if (!fs.existsSync(filepath)) {
+                                product.$('div[data-automation=product-price]').click();
+                                browser.saveScreenshot(filepath);
+                            }
                         }
                     };
                     if (70<=percent && percent<80) {
                         let name = productBrand + ' ' + productName;
                         // discountRangeTwo.push(name);
-                        product.$('div[data-automation=product-price]').click();
                         name = name.split('.').join('').split('/').join('');
                         filepath = 'screenshots/70to80/' + name + '.png';
-                        browser.saveScreenshot(filepath);
+                        if (!fs.existsSync(filepath)) {
+                            product.$('div[data-automation=product-price]').click();
+                            browser.saveScreenshot(filepath);
+                        }
                     };
                     if (percent>=80) {
                         let name = productBrand + ' ' + productName;
                         // discountRangeThree.push(name);
-                        product.$('div[data-automation=product-price]').click();
                         name = name.split('.').join('').split('/').join('');
                         filepath = 'screenshots/over80/' + name + '.png';
-                        browser.saveScreenshot(filepath);
+                        if (!fs.existsSync(filepath)) {
+                            product.$('div[data-automation=product-price]').click();
+                            browser.saveScreenshot(filepath);
+                        }
                     };
                 // }
             }
