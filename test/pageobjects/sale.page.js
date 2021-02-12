@@ -39,12 +39,7 @@ class SalePage extends Page {
     }
 
     discountCalculator(category) {
-        let productBrand;
-        let productName;
-        let nowPrice;
-        let wasPrice;
-        let percent;
-        let filepath;
+        let productBrand, productName, nowPrice, wasPrice, percent, filepath, name, discount, discountRate;
         
         this.products.forEach(product => {
             items+=1;
@@ -60,15 +55,16 @@ class SalePage extends Page {
                 wasPrice = this.getWasPrice(product);
                 nowPrice = this.getNowPrice(product);
                 if (productText.includes('further')) {
-                    let discount = (this.furtherDiscountWrapper.getText().split(' '))[3];
-                    console.log(discount)
-                    let discountRate = discount.slice(0,2);
-                    console.log('rate: ' + discountRate)
+                    discount = (this.furtherDiscountWrapper.getText().split(' '))[3];
+                    discountRate = discount.slice(0,2);
+                    // console.log('rate: ' + discountRate);
+                    // console.log(nowPrice);
                     nowPrice = nowPrice - (nowPrice * discountRate/100);
+                    // console.log('New Price: ' + nowPrice);
                 }
                 percent = ((1-(nowPrice/wasPrice))*100).toFixed(0);
-                if (60<=percent && percent<70) {
-                    let name = productBrand + ' ' + productName;
+                if (65<=percent && percent<70) {
+                    name = productBrand + ' ' + productName;
                     // if (productText.includes('further')) {
                         name = name.split('.').join('').split('/').join('');
                         filepath = 'screenshots/60to70/' + percent + ' ' + name + '.png';
@@ -80,7 +76,7 @@ class SalePage extends Page {
                     // }
                 };
                 if (70<=percent && percent<80) {
-                    let name = productBrand + ' ' + productName;
+                    name = productBrand + ' ' + productName;
                     name = name.split('.').join('').split('/').join('');
                     filepath = 'screenshots/70to80/' + percent + ' ' + name + '.png';
                     if (!fs.existsSync(filepath)) {
@@ -90,7 +86,7 @@ class SalePage extends Page {
                     }
                 };
                 if (percent>=80) {
-                    let name = productBrand + ' ' + productName;
+                    name = productBrand + ' ' + productName;
                     name = name.split('.').join('').split('/').join('');
                     filepath = 'screenshots/over80/' + percent + ' ' + name + '.png';
                     if (!fs.existsSync(filepath)) {
