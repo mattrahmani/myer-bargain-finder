@@ -8,7 +8,6 @@ class SalePage extends Page {
     get products() {return $$('li[data-automation=product-grid-item]')};
     get nextBtn() {return $('a=Next') };
     get pageHeader() {return $('h1.css-1sfahi1')};
-    get pageNumberElement() {return $('ol[data-automation="paginateContainer"] li:nth-child(9)')};
     get totalProductsElement() {return $('span[data-automation=product-total]')};
     get furtherDiscountWrapper() {return $('span*=Take a further')};
 
@@ -44,7 +43,6 @@ class SalePage extends Page {
         this.products.forEach(product => {
             items+=1;
             product.waitForDisplayed();
-            // product.scrollIntoView();
             let productText = product.getText();
             let productHtml = product.getHTML();
             if (productText.includes('Was') && productText.includes('Now')) {
@@ -57,15 +55,11 @@ class SalePage extends Page {
                 if (productText.includes('further')) {
                     discount = (this.furtherDiscountWrapper.getText().split(' '))[3];
                     discountRate = discount.slice(0,2);
-                    // console.log('rate: ' + discountRate);
-                    // console.log(nowPrice);
                     nowPrice = nowPrice - (nowPrice * discountRate/100);
-                    // console.log('New Price: ' + nowPrice);
                 }
                 percent = ((1-(nowPrice/wasPrice))*100).toFixed(0);
                 if (65<=percent && percent<70) {
                     name = productBrand + ' ' + productName;
-                    // if (productText.includes('further')) {
                         name = name.split('.').join('').split('/').join('');
                         filepath = 'screenshots/60to70/' + percent + ' ' + name + '.png';
                         if (!fs.existsSync(filepath)) {
@@ -73,7 +67,6 @@ class SalePage extends Page {
                             product.$('div[data-automation=product-price]').click();
                             browser.saveScreenshot(filepath);
                         }
-                    // }
                 };
                 if (70<=percent && percent<80) {
                     name = productBrand + ' ' + productName;
