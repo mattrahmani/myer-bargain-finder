@@ -18,8 +18,11 @@ module.exports = class Page {
         return browser.url(`/${path}`);
     }
 
-    login() {
-        browser.url('https://www.myer.com.au/login?continue=%2Faccount&flow=account');
-        
+    drawHighlight(element) {
+        browser.execute('arguments[0].style.outline = "#f00 solid 4px";', element);
+    }
+
+    removeHighlight(element) {
+        browser.execute('arguments[0].style.outline = "#f00 solid 0px";', element);
     }
 }

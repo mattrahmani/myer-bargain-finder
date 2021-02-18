@@ -64,8 +64,9 @@ class SalePage extends Page {
                         filepath = 'screenshots/60to70/' + percent + ' ' + name + '.png';
                         if (!fs.existsSync(filepath)) {
                             product.scrollIntoView();
-                            product.$('div[data-automation=product-price]').click();
+                            this.drawHighlight(product);
                             browser.saveScreenshot(filepath);
+                            this.removeHighlight(product);
                         }
                 };
                 if (70<=percent && percent<80) {
@@ -74,8 +75,9 @@ class SalePage extends Page {
                     filepath = 'screenshots/70to80/' + percent + ' ' + name + '.png';
                     if (!fs.existsSync(filepath)) {
                         product.scrollIntoView();
-                        product.$('div[data-automation=product-price]').click();
+                        this.drawHighlight(product);
                         browser.saveScreenshot(filepath);
+                        this.removeHighlight(product);
                     }
                 };
                 if (percent>=80) {
@@ -84,8 +86,9 @@ class SalePage extends Page {
                     filepath = 'screenshots/over80/' + percent + ' ' + name + '.png';
                     if (!fs.existsSync(filepath)) {
                         product.scrollIntoView();
-                        product.$('div[data-automation=product-price]').click();
+                        this.drawHighlight(product);
                         browser.saveScreenshot(filepath);
+                        this.removeHighlight(product);
                         }
                 };
             }
