@@ -5,7 +5,7 @@ const fs = require('fs');
 let items = 0;
 class SalePage extends Page {
 
-    get products() {return $$('li[data-automation=product-grid-item]')};
+    get products() {return $$('div[data-automation=product]')};
     get nextBtn() {return $('a=Next') };
     get pageHeader() {return $('h1.css-1sfahi1')};
     get totalProductsElement() {return $('span[data-automation=product-total]')};
