@@ -22,6 +22,7 @@ class SalePage extends Page {
             this.discountCalculator(category);
             try {
                 if (this.nextBtn.isDisplayed()) {
+                    console.log(category+count);
                     this.nextBtn.click();
                     this.pageHeader.waitForDisplayed();
                     count+=1;
