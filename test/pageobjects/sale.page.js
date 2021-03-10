@@ -59,39 +59,17 @@ class SalePage extends Page {
                     nowPrice = nowPrice - (nowPrice * discountRate/100);
                 }
                 percent = ((1-(nowPrice/wasPrice))*100).toFixed(0);
-                if (65<=percent && percent<70) {
+                if (65<=percent) {
                     name = productBrand + ' ' + productName;
                         name = name.split('.').join('').split('/').join('');
-                        filepath = 'screenshots/60to70/' + percent + ' ' + name + '.png';
+                        filepath = 'screenshots/' + category + '/' + percent + ' ' + name + '.png';
                         if (!fs.existsSync(filepath)) {
                             product.scrollIntoView();
                             this.drawHighlight(product);
                             browser.saveScreenshot(filepath);
                             this.removeHighlight(product);
                         }
-                };
-                if (70<=percent && percent<80) {
-                    name = productBrand + ' ' + productName;
-                    name = name.split('.').join('').split('/').join('');
-                    filepath = 'screenshots/70to80/' + percent + ' ' + name + '.png';
-                    if (!fs.existsSync(filepath)) {
-                        product.scrollIntoView();
-                        this.drawHighlight(product);
-                        browser.saveScreenshot(filepath);
-                        this.removeHighlight(product);
-                    }
-                };
-                if (percent>=80) {
-                    name = productBrand + ' ' + productName;
-                    name = name.split('.').join('').split('/').join('');
-                    filepath = 'screenshots/over80/' + percent + ' ' + name + '.png';
-                    if (!fs.existsSync(filepath)) {
-                        product.scrollIntoView();
-                        this.drawHighlight(product);
-                        browser.saveScreenshot(filepath);
-                        this.removeHighlight(product);
-                        }
-                };
+                }
             }
         })
     }
