@@ -42,34 +42,44 @@ class SalePage extends Page {
         let productBrand, productName, nowPrice, wasPrice, percent, filepath, name, discount, discountRate;
         
         this.products.forEach(product => {
-            items+=1;
-            product.waitForDisplayed();
-            let productText = product.getText();
-            let productHtml = product.getHTML();
-            if (productText.includes('Was') && productText.includes('Now')) {
-                if (productHtml.includes('brand')) {
-                    productBrand = product.$('span[data-automation=product-brand]').getText();
+            try {
+                items+=1;
+                product.waitForDisplayed();
+                let productText = product.getText();
+                let productHtml = product.getHTML();
+                if (productText.includes('Was') && productText.includes('Now')) {
+                    if (productHtml.includes('brand')) {
+                        productBrand = product.$('span[data-automation=product-brand]').getText();
+                    }
+                    productName = product.$('span[data-automation=product-name]').getText();
+                    wasPrice = this.getWasPrice(product);
+                    nowPrice = this.getNowPrice(product);
+                    if (productText.includes('further') && productText.includes('%')) {
+                        discount = (this.furtherDiscountWrapper.getText().split(' '))[3];
+                        console.log(discount)
+                        discountRate = discount.slice(0,2);
+                        nowPrice = nowPrice - (nowPrice * discountRate/100);
+                    }
+                    percent = ((1-(nowPrice/wasPrice))*100).toFixed(0);
+                    if (65<=percent) {
+                        name = productBrand + ' ' + productName;
+                            name = name.split('.').join('').split('/').join('');
+                            filepath = 'screenshots/' + category + '/' + percent + ' ' + name + '.png';
+                            if (!fs.existsSync(filepath)) {
+                                product.scrollIntoView();
+                                this.drawHighlight(product);
+                                browser.saveScreenshot(filepath);
+                                this.removeHighlight(product);
+                            }
+                    }
                 }
-                productName = product.$('span[data-automation=product-name]').getText();
-                wasPrice = this.getWasPrice(product);
-                nowPrice = this.getNowPrice(product);
-                if (productText.includes('further')) {
-                    discount = (this.furtherDiscountWrapper.getText().split(' '))[3];
-                    discountRate = discount.slice(0,2);
-                    nowPrice = nowPrice - (nowPrice * discountRate/100);
-                }
-                percent = ((1-(nowPrice/wasPrice))*100).toFixed(0);
-                if (65<=percent) {
-                    name = productBrand + ' ' + productName;
-                        name = name.split('.').join('').split('/').join('');
-                        filepath = 'screenshots/' + category + '/' + percent + ' ' + name + '.png';
-                        if (!fs.existsSync(filepath)) {
-                            product.scrollIntoView();
-                            this.drawHighlight(product);
-                            browser.saveScreenshot(filepath);
-                            this.removeHighlight(product);
-                        }
-                }
+            } catch (error) {
+                product.scrollIntoView();
+                this.drawHighlight(product);
+                filepath = 'errorScreenshot/' + category + ' error.png';
+                browser.saveScreenshot(filepath);
+                this.removeHighlight(product);
+                throw error;
             }
         })
     }
