@@ -56,7 +56,6 @@ class SalePage extends Page {
                     nowPrice = this.getNowPrice(product);
                     if (productText.includes('further') && productText.includes('%')) {
                         discount = (this.furtherDiscountWrapper.getText().split(' '))[3];
-                        console.log(discount)
                         discountRate = discount.slice(0,2);
                         nowPrice = nowPrice - (nowPrice * discountRate/100);
                     }
