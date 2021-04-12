@@ -60,7 +60,7 @@ class SalePage extends Page {
                         nowPrice = nowPrice - (nowPrice * discountRate/100);
                     }
                     percent = ((1-(nowPrice/wasPrice))*100).toFixed(0);
-                    if (65<=percent) {
+                    if (70<=percent) {
                         name = productBrand + ' ' + productName;
                             name = name.split('.').join('').split('/').join('');
                             filepath = 'screenshots/' + category + '/' + percent + ' ' + name + '.png';
