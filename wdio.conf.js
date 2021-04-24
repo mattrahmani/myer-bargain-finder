@@ -17,12 +17,12 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        // './test/specs/**/*.js',
+        './test/specs/**/*.js',
         // './test/specs/04_bargainFinderBeauty.js',
-        './test/specs/07_bargainFinderToys.js',
-        './test/specs/05_bargainFinderEntertainment.js',
-        './test/specs/03_bargainFinderHome.js',
-        './test/specs/06_bargainFinderKids.js',
+        // './test/specs/07_bargainFinderToys.js',
+        // './test/specs/05_bargainFinderEntertainment.js',
+        // './test/specs/03_bargainFinderHome.js',
+        // './test/specs/06_bargainFinderKids.js',
         // './test/specs/02_bargainFinderMen.js',
         // './test/specs/01_bargainFinderWomen.js'
     ],
@@ -57,7 +57,7 @@ exports.config = {
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
-        maxInstances: 6,
+        maxInstances: 3,
         //
         browserName: 'chrome',
         acceptInsecureCerts: true
