@@ -9,7 +9,6 @@ class SalePage extends Page {
     get nextBtn() {return $('a=Next') };
     get pageHeader() {return $('h1.css-1sfahi1')};
     get totalProductsElement() {return $('span[data-automation=product-total]')};
-    get furtherDiscountWrapper() {return $('span*=Take a further')};
 
     open (extension) {
         return super.open(extension);
@@ -50,26 +49,29 @@ class SalePage extends Page {
                 if (productText.includes('Was') && productText.includes('Now')) {
                     if (productHtml.includes('brand')) {
                         productBrand = product.$('span[data-automation=product-brand]').getText();
+                    } else {
+                        productBrand = '';
                     }
-                    productName = product.$('span[data-automation=product-name]').getText();
+                    productName = product.$('span[data-automation=product-name]').getText().split(' ');
                     wasPrice = this.getWasPrice(product);
                     nowPrice = this.getNowPrice(product);
                     if (productText.includes('further') && productText.includes('%')) {
-                        discount = (this.furtherDiscountWrapper.getText().split(' '))[3];
-                        discountRate = discount.slice(0,2);
+                        discount = product.$('span*=Take a further').getText().split(' ');
+                        discountRate = discount[3].slice(0,2);
                         nowPrice = nowPrice - (nowPrice * discountRate/100);
                     }
                     percent = ((1-(nowPrice/wasPrice))*100).toFixed(0);
                     if (70<=percent) {
                         name = productBrand + ' ' + productName;
-                            name = name.split('.').join('').split('/').join('');
-                            filepath = 'screenshots/' + category + '/' + percent + ' ' + name + '.png';
-                            if (!fs.existsSync(filepath)) {
-                                product.scrollIntoView();
-                                this.drawHighlight(product);
-                                browser.saveScreenshot(filepath);
-                                this.removeHighlight(product);
-                            }
+                        name = name.split('.').join('').split('/').join('');
+                        filepath = 'screenshots/' + category + '/' + percent + ' ' + name + '.png';
+                        if (!fs.existsSync(filepath)) {
+                            product.scrollIntoView();
+                            browser.waitUntil(() => product.$('img').isDisplayed());
+                            this.drawHighlight(product);
+                            browser.saveScreenshot(filepath);
+                            this.removeHighlight(product);
+                        }
                     }
                 }
             } catch (error) {
