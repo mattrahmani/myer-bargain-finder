@@ -52,7 +52,7 @@ class SalePage extends Page {
                     } else {
                         productBrand = '';
                     }
-                    productName = product.$('span[data-automation=product-name]').getText().split(' ');
+                    productName = product.$('span[data-automation=product-name]').getText();
                     wasPrice = this.getWasPrice(product);
                     nowPrice = this.getNowPrice(product);
                     if (productText.includes('further') && productText.includes('%')) {
