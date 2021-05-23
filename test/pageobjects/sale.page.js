@@ -20,7 +20,7 @@ class SalePage extends Page {
         for (let i=0; i<300; i++) {
             this.discountCalculator(category);
             try {
-                if (this.nextBtn.isDisplayed()) {
+                if (this.nextBtn.waitForDisplayed( {timeout: 5000})) {
                     console.log(category+count);
                     this.nextBtn.click();
                     this.pageHeader.waitForDisplayed();
