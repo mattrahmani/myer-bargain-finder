@@ -44,6 +44,7 @@ class SalePage extends Page {
             try {
                 items+=1;
                 product.waitForDisplayed();
+                product.scrollIntoView();
                 let productText = product.getText();
                 let productHtml = product.getHTML();
                 if (productText.includes('Was') && productText.includes('Now')) {
@@ -56,7 +57,7 @@ class SalePage extends Page {
                     wasPrice = this.getWasPrice(product);
                     nowPrice = this.getNowPrice(product);
                     if (productText.includes('further') && productText.includes('%')) {
-                        discount = product.$('span*=Take a further').getText().split(' ');
+                        discount = product.$('a*=Take a further').getText().split(' ');
                         discountRate = discount[3].slice(0,2);
                         nowPrice = nowPrice - (nowPrice * discountRate/100);
                     }
