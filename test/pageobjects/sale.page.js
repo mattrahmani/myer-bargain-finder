@@ -44,7 +44,7 @@ class SalePage extends Page {
             try {
                 items+=1;
                 product.waitForDisplayed();
-                product.scrollIntoView();
+                // product.scrollIntoView();
                 let productText = product.getText();
                 let productHtml = product.getHTML();
                 if (productText.includes('Was') && productText.includes('Now')) {
