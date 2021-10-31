@@ -20,17 +20,23 @@ class SalePage extends Page {
         for (let i=0; i<300; i++) {
             this.discountCalculator(category);
             try {
-                if (this.nextBtn.waitForDisplayed( {timeout: 5000})) {
+                if (this.nextBtn.waitForDisplayed( {timeout: 50000})) {
                     console.log(category+count);
+                    let oldUrl = browser.getUrl();
                     this.nextBtn.click();
-                    this.pageHeader.waitForDisplayed();
+                    this.pageHeader.waitForDisplayed( {timeout: 50000});
+                    browser.waitUntil(() => oldUrl!=browser.getUrl(), {timeout: 60000});
+                    let newUrl = browser.getUrl();
+                    // console.log(oldUrl, newUrl)
+                    oldUrl = newUrl;
                     count+=1;
-                    expect(browser).toHaveUrlContaining('='+count);
+                    expect(newUrl).toContain('='+count);
                 }
                 else{
                     break;
                 }
             } catch (error) {
+                // throw error;
                 break;
             }
         }
