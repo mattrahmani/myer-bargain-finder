@@ -1,4 +1,4 @@
-const fs = require ('fs');
+const fs = require('fs');
 const discount = process.env.DISCOUNT || 70;
 exports.config = {
     //
@@ -19,13 +19,13 @@ exports.config = {
     // directory is where your package.json resides, so `wdio` will be called from there.
     //
     specs: [
-        './test/specs/**/*.js',
+        // './test/specs/**/*.js',
         // './test/specs/04_bargainFinderBeauty.js',
-        // './test/specs/07_bargainFinderToys.js',
+        './test/specs/07_bargainFinderToys.js',
         // './test/specs/05_bargainFinderEntertainment.js',
         // './test/specs/03_bargainFinderHome.js',
         // './test/specs/06_bargainFinderKids.js',
-        // './test/specs/02_bargainFinderMen.js',
+        './test/specs/02_bargainFinderMen.js',
         // './test/specs/01_bargainFinderWomen.js'
     ],
     // Patterns to exclude.
@@ -55,7 +55,7 @@ exports.config = {
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
     capabilities: [{
-    
+
         // maxInstances can get overwritten per capability. So if you have an in-house Selenium
         // grid with only 5 firefox instances available you can make sure that not more than
         // 5 instances get started at a time.
@@ -115,8 +115,9 @@ exports.config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ['chromedriver'],
-    
+    services:
+        ['chromedriver'],
+
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber
     // see also: https://webdriver.io/docs/frameworks.html
@@ -140,7 +141,7 @@ exports.config = {
     reporters: ['spec'],
 
 
-    
+
     //
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
@@ -155,22 +156,22 @@ exports.config = {
 
     afterStep: function (test, context, { error, result, duration, passed, retries }) {
         if (error) {
-          browser.takeScreenshot();
+            browser.takeScreenshot();
         }
-      },
+    },
 
     afterTest: function (test, context, { error, result, duration, passed, retries }) {
-        
-        if(passed != true){
-            console.log("###########################   TEST FAILED : "+ test.title +"  ###################################");
-            
-            browser.saveScreenshot("errorScreenshot/"+test.title+" Error.png");
+
+        if (passed != true) {
+            console.log("###########################   TEST FAILED : " + test.title + "  ###################################");
+
+            browser.saveScreenshot("errorScreenshot/" + test.title + " Error.png");
         }
 
-        if(error == true){
-            console.log("###########################   TEST FAILED : "+ test.title +"  ###################################");
-            
-            browser.saveScreenshot("errorScreenshot/"+test.title+" Error.png");
+        if (error == true) {
+            console.log("###########################   TEST FAILED : " + test.title + "  ###################################");
+
+            browser.saveScreenshot("errorScreenshot/" + test.title + " Error.png");
         }
     },
     // WebdriverIO provides several hooks you can use to interfere with the test process in order to enhance
@@ -205,9 +206,8 @@ exports.config = {
     beforeSession: function (config, capabilities, specs) {
         global.discount = discount;
 
-        if (!fs.existsSync('errorScreenshot/')) {
-            fs.mkdirSync('errorScreenshot/');
-        }
+        fs.rmSync('errorScreenshot/', { recursive: true, force: true });
+        fs.mkdirSync('errorScreenshot/');
     },
     /**
      * Gets executed before test execution begins. At this point you can access to all global

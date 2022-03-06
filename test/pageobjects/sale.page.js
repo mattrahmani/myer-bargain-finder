@@ -10,7 +10,8 @@ class SalePage extends Page {
     get nextBtn() { return $('a=Next') };
     get pageHeader() { return $('h1.css-1sfahi1') };
     get totalItemsElement() { return $('span[data-automation=product-total]') };
-    get paginateContainerList() { return $('ol[data-automation=paginateContainer]').$$('li') };
+    get paginateContainer() { return $('ol[data-automation=paginateContainer]') };
+    get paginateContainerList() { return this.paginateContainer.$$('li') };
 
 
     open(extension) {
@@ -32,7 +33,11 @@ class SalePage extends Page {
 
     findBargains(category) {
         this.getTodayDate();
-        lastPageNumber = Number(this.paginateContainerList[this.paginateContainerList.length - 2].getText());
+        if (this.paginateContainer.isExisting()) {
+            lastPageNumber = Number(this.paginateContainerList[this.paginateContainerList.length - 2].getText());
+        } else {
+            lastPageNumber = 1;
+        }
         const totalItems = this.getNumber(this.totalItemsElement.getText());
         let count = 1;
         for (let i = 0; i < lastPageNumber; i++) {
