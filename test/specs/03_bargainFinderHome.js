@@ -1,11 +1,13 @@
-const SalePage = require('../pageObjects/sale.page');
+const onSalePage = require('../pageObjects/sale.page');
 
 describe('Myer bargain finder', () => {
 
     it('should find bargains from Home category', () => {
-        let homePage = 'c/offers/w16-home';
-        SalePage.open(homePage);
-        SalePage.bargainFinder('home');
-        console.log('=====>>> Home bargains search is finished <<<=====\n')
+        const homePage = 'c/offers/w16-home',
+            category = 'home';
+        onSalePage.open(homePage);
+        onSalePage.confirmScreenshotFolderIsExisting(category);
+        onSalePage.getExistingItems();
+        onSalePage.findBargains(category);
     });
 });

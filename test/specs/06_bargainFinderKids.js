@@ -1,13 +1,13 @@
-const SalePage = require('../pageObjects/sale.page');
+const onSalePage = require('../pageObjects/sale.page');
 
 describe('Myer bargain finder', () => {
 
     it('should find bargains from Kids category', () => {
-        let kidsPage = 'c/offers/kids-739053-1';
-        SalePage.open(kidsPage);
-        SalePage.bargainFinder('kids');
-        console.log('=====>>> Kids bargains search is finished <<<=====\n')
+        const kidsPage = 'c/offers/kids-739053-1',
+            category = 'kids';
+        onSalePage.open(kidsPage);
+        onSalePage.confirmScreenshotFolderIsExisting(category);
+        onSalePage.getExistingItems();
+        onSalePage.findBargains(category);
     });
 });
-
-
