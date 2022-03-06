@@ -1,3 +1,4 @@
+const fs = require ('fs');
 const discount = process.env.DISCOUNT || 70;
 exports.config = {
     //
@@ -159,6 +160,10 @@ exports.config = {
       },
 
     afterTest: function (test, context, { error, result, duration, passed, retries }) {
+
+        if (!fs.existsSync('errorScreenshot/')) {
+            fs.mkdirSync('errorScreenshot/');
+        }
         
         if(passed != true){
             console.log("###########################   TEST FAILED : "+ test.title +"  ###################################");

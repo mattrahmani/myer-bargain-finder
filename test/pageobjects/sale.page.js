@@ -2,7 +2,7 @@ const { assert } = require('chai');
 const Page = require('./page');
 const fs = require('fs');
 const path = require('path');
-let items = 0, screenshotFolder, today, existingItems, lastPageNumber;
+let items = 0, screenshotSubFolder, today, existingItems, lastPageNumber;
 
 class SalePage extends Page {
 
@@ -18,10 +18,15 @@ class SalePage extends Page {
     }
 
     confirmScreenshotFolderIsExisting(category) {
-        screenshotFolder = 'screenshots/' + category + '/';
-        if (!fs.existsSync(screenshotFolder)) {
-            fs.mkdirSync(screenshotFolder);
-            return screenshotFolder;
+        let screenshotMainFolder = 'screenshots/';
+        if (!fs.existsSync(screenshotMainFolder)) {
+            fs.mkdirSync(screenshotMainFolder);
+            // return screenshotFolder;
+        }
+        screenshotSubFolder = 'screenshots/' + category + '/';
+        if (!fs.existsSync(screenshotSubFolder)) {
+            fs.mkdirSync(screenshotSubFolder);
+            return screenshotSubFolder;
         }
     }
 
@@ -93,9 +98,9 @@ class SalePage extends Page {
                             productName = product.$('span[data-automation=product-name]').getText();
                             name = productBrand + ' ' + productName;
                             name = name.split('.').join('').split('/').join('');
-                            let itemName = percent + ' ' + name + '.png';
                             nowPrice = Number(nowPrice).toFixed(0);
-                            filepath = screenshotFolder + today + '--> ' + percent + '(Now $' + nowPrice + ') ' + name + '.png';
+                            let itemName = percent + '% Off (Now $' + nowPrice + ') ' + name + '.png';
+                            filepath = screenshotSubFolder + today + '--> ' + percent + '% Off (Now $' + nowPrice + ') ' + name + '.png';
                             if (!existingItems.includes(itemName)) {
                                 product.scrollIntoView();
                                 browser.waitUntil(() => product.$('img').isDisplayed());
@@ -150,7 +155,7 @@ class SalePage extends Page {
 
     getExistingItems() {
         existingItems = [];
-        const directoryPath = path.join(screenshotFolder);
+        const directoryPath = path.join(screenshotSubFolder);
         fs.readdir(directoryPath, function (err, files) {
             files.forEach(function (file) {
                 let fileName = file.toString().split(' ').slice(1).join(' ');
