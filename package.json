@@ -4,7 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "myer": "wdio wdio.conf.js"
+    "myer": "wdio wdio.conf.js",
+    "women": "wdio wdio.conf.js --spec women",
+    "home": "wdio wdio.conf.js --spec home",
+    "men": "wdio wdio.conf.js --spec men",
+    "kids": "wdio wdio.conf.js --spec kids",
+    "entertainment": "wdio wdio.conf.js --spec entertainment",
+    "beauty": "wdio wdio.conf.js --spec beauty",
+    "toys": "wdio wdio.conf.js --spec toys"
   },
   "keywords": [],
   "author": "Matt Rahmani",

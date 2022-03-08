@@ -1,5 +1,5 @@
 const fs = require('fs');
-const discount = process.env.DISCOUNT || 70;
+const discount = process.env.DISCOUNT;
 exports.config = {
     //
     // ====================
@@ -20,13 +20,13 @@ exports.config = {
     //
     specs: [
         './test/specs/**/*.js',
-        // './test/specs/04_bargainFinderBeauty.js',
-        // './test/specs/07_bargainFinderToys.js',
-        // './test/specs/05_bargainFinderEntertainment.js',
-        // './test/specs/03_bargainFinderHome.js',
-        // './test/specs/06_bargainFinderKids.js',
-        // './test/specs/02_bargainFinderMen.js',
-        // './test/specs/01_bargainFinderWomen.js'
+        // './test/specs/01-women-sale.js',
+        // './test/specs/02-men-sale.js',
+        // './test/specs/03-home-sale.js',
+        // './test/specs/04-beauty-sale.js',
+        // './test/specs/05-entertainment-sale.js',
+        // './test/specs/06-kids-sale.js',
+        // './test/specs/07-toys-sale.js'
     ],
     // Patterns to exclude.
     exclude: [
@@ -164,13 +164,17 @@ exports.config = {
 
         if (passed != true) {
             console.log("###########################   TEST FAILED : " + test.title + "  ###################################");
-
+            if (!fs.existsSync('errorScreenshot/')) {
+                fs.mkdirSync('errorScreenshot/');
+            }
             browser.saveScreenshot("errorScreenshot/" + test.title + " Error.png");
         }
 
         if (error == true) {
             console.log("###########################   TEST FAILED : " + test.title + "  ###################################");
-
+            if (!fs.existsSync('errorScreenshot/')) {
+                fs.mkdirSync('errorScreenshot/');
+            }
             browser.saveScreenshot("errorScreenshot/" + test.title + " Error.png");
         }
     },
@@ -183,8 +187,11 @@ exports.config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    // onPrepare: function (config, capabilities) {
-    // },
+    onPrepare: function (config, capabilities) {
+        if (fs.existsSync('errorScreenshot/')) {
+            fs.rmSync('errorScreenshot/', { recursive: true, force: true });
+        }
+    },
     /**
      * Gets executed before a worker process is spawned and can be used to initialise specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -205,9 +212,6 @@ exports.config = {
      */
     beforeSession: function (config, capabilities, specs) {
         global.discount = discount;
-
-        fs.rmSync('errorScreenshot/', { recursive: true, force: true });
-        fs.mkdirSync('errorScreenshot/');
     },
     /**
      * Gets executed before test execution begins. At this point you can access to all global

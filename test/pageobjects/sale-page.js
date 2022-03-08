@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 let items = 0, screenshotSubFolder, today, existingItems, lastPageNumber;
 
-class SalePage extends Page {
+class onSalePage extends Page {
 
     get products() { return $$('div[data-automation=product]') };
     get nextBtn() { return $('a=Next') };
@@ -173,4 +173,4 @@ class SalePage extends Page {
     }
 }
 
-module.exports = new SalePage();
+module.exports = new onSalePage();

@@ -1,10 +1,12 @@
-const onSalePage = require('../pageObjects/sale.page');
+const onSalePage = require('../pageobjects/sale-page');
 
 describe('Myer bargain finder', () => {
 
-    it('should find bargains from Women category', () => {
+    it('should find bargains in Women category', () => {
         const womenPage = 'c/offers/women-739051-1',
             category = 'women';
+        discount = process.env.DISCOUNT || 70;
+        console.log('Discount rate in ' + category + ' category --->>> ' + discount);
         onSalePage.open(womenPage);
         onSalePage.confirmScreenshotFolderIsExisting(category);
         onSalePage.getExistingItems();
