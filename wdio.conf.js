@@ -164,17 +164,11 @@ exports.config = {
 
         if (passed != true) {
             console.log("###########################   TEST FAILED : " + test.title + "  ###################################");
-            if (!fs.existsSync('errorScreenshot/')) {
-                fs.mkdirSync('errorScreenshot/');
-            }
             browser.saveScreenshot("errorScreenshot/" + test.title + " Error.png");
         }
 
         if (error == true) {
             console.log("###########################   TEST FAILED : " + test.title + "  ###################################");
-            if (!fs.existsSync('errorScreenshot/')) {
-                fs.mkdirSync('errorScreenshot/');
-            }
             browser.saveScreenshot("errorScreenshot/" + test.title + " Error.png");
         }
     },
@@ -212,6 +206,9 @@ exports.config = {
      */
     beforeSession: function (config, capabilities, specs) {
         global.discount = discount;
+        if (!fs.existsSync('errorScreenshot/')) {
+            fs.mkdirSync('errorScreenshot/');
+        }
     },
     /**
      * Gets executed before test execution begins. At this point you can access to all global
