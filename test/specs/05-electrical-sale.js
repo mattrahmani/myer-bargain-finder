@@ -2,9 +2,9 @@ const onSalePage = require('../pageobjects/sale-page');
 
 describe('Myer bargain finder', () => {
 
-    it('should find bargains in Entertainment category', () => {
+    it('should find bargains in Electrical category', () => {
         const entertainmentPage = 'c/offers/sale-electrical',
-            category = 'entertainment';
+            category = 'electrical';
         discount = process.env.DISCOUNT || 50;
         console.log('Discount rate in ' + category + ' category --->>> ' + discount);
         onSalePage.open(entertainmentPage);

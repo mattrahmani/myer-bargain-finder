@@ -9,7 +9,7 @@
     "home": "wdio wdio.conf.js --spec home",
     "men": "wdio wdio.conf.js --spec men",
     "kids": "wdio wdio.conf.js --spec kids",
-    "entertainment": "wdio wdio.conf.js --spec entertainment",
+    "electrical": "wdio wdio.conf.js --spec electrical",
     "beauty": "wdio wdio.conf.js --spec beauty",
     "toys": "wdio wdio.conf.js --spec toys"
   },
