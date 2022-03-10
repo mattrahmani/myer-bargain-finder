@@ -168,11 +168,13 @@ exports.config = {
         if (passed != true) {
             console.log("###########################   TEST FAILED : " + test.title + "  ###################################");
             browser.saveScreenshot("errorScreenshot/" + test.title + " Error.png");
+            throw error;
         }
 
         if (error == true) {
             console.log("###########################   TEST FAILED : " + test.title + "  ###################################");
             browser.saveScreenshot("errorScreenshot/" + test.title + " Error.png");
+            throw error;
         }
     },
     // WebdriverIO provides several hooks you can use to interfere with the test process in order to enhance

@@ -66,7 +66,7 @@ class onSalePage extends Page {
     }
 
     discountCalculator(category) {
-        let productBrand, productName, nowPrice, wasPrice, percent, filepath, name, extraDiscount, discountRate, priceBlockHTML;
+        let productBrand, productName, priceNow, priceWas, percent, filePath, name, extraDiscount, discountRate, priceBlockHTML;
 
         this.products.forEach(product => {
             try {
@@ -76,8 +76,8 @@ class onSalePage extends Page {
                 priceBlockHTML = product.$('div[data-automation=product-price]').getHTML();
 
                 if (priceBlockHTML.includes('product-price-was') && priceBlockHTML.includes('product-price-now')) {
-                    wasPrice = this.getWasPrice(product);
-                    nowPrice = this.getNowPrice(product);
+                    priceWas = this.getPriceWas(product);
+                    priceNow = this.getPriceNow(product);
 
                     if (product.$('div[data-automation=product-label]').isExisting()) {
                         const productText = product.getText();
@@ -88,11 +88,11 @@ class onSalePage extends Page {
                                 extraDiscount = product.$('span*=Take a further').getText().split(' ');
                             }
                             discountRate = extraDiscount[3].slice(0, 2);
-                            nowPrice = nowPrice - (nowPrice * discountRate / 100);
+                            priceNow = priceNow - (priceNow * discountRate / 100);
                         }
                     }
 
-                    percent = ((1 - (nowPrice / wasPrice)) * 100).toFixed(0);
+                    percent = ((1 - (priceNow / priceWas)) * 100).toFixed(0);
                     if (percent >= Number(discount)) {
                         if (!product.$('div.small-text').isExisting() || !product.$('div.small-text').getText().includes('Out of stock')) {
                             if (product.$('span[data-automation=product-brand').isExisting()) {
@@ -103,14 +103,14 @@ class onSalePage extends Page {
                             productName = product.$('span[data-automation=product-name]').getText();
                             name = productBrand + ' ' + productName;
                             name = name.split('.').join('').split('/').join('');
-                            nowPrice = Number(nowPrice).toFixed(0);
-                            let itemName = percent + '% Off (Now $' + nowPrice + ') ' + name + '.png';
-                            filepath = screenshotSubFolder + today + '--> ' + percent + '% Off (Now $' + nowPrice + ') ' + name + '.png';
+                            priceNow = Number(priceNow).toFixed(0);
+                            let itemName = percent + '% Off (Now $' + priceNow + ') ' + name + '.png';
+                            filePath = screenshotSubFolder + today + '--> ' + percent + '% Off (Now $' + priceNow + ') ' + name + '.png';
                             if (!existingItems.includes(itemName)) {
                                 product.scrollIntoView();
                                 browser.waitUntil(() => product.$('img').isDisplayed());
                                 this.drawHighlight(product);
-                                browser.saveScreenshot(filepath);
+                                browser.saveScreenshot(filePath);
                                 this.removeHighlight(product);
                             }
                         }
@@ -120,8 +120,8 @@ class onSalePage extends Page {
                 console.log('An error happened while scanning --->> ' + name);
                 product.scrollIntoView();
                 this.drawHighlight(product);
-                filepath = 'errorScreenshot/' + category + ' error.png';
-                browser.saveScreenshot(filepath);
+                filePath = 'errorScreenshot/' + category + ' error.png';
+                browser.saveScreenshot(filePath);
                 this.removeHighlight(product);
                 throw error;
             }
@@ -134,17 +134,17 @@ class onSalePage extends Page {
         return price;
     }
 
-    getWasPrice(product) {
-        let wasPriceTxt = product.$('span[data-automation=product-price-was]').getText();
-        // let wasPriceTxt = product.$('p[data-automation=product-price-was] span:nth-child(2)').getText();
-        let wasPrice = this.getPrice(wasPriceTxt);
-        return wasPrice;
+    getPriceWas(product) {
+        let priceWasTxt = product.$('span[data-automation=product-price-was]').getText();
+        // let priceWasTxt = product.$('p[data-automation=product-price-was] span:nth-child(2)').getText();
+        let priceWas = this.getPrice(priceWasTxt);
+        return priceWas;
     }
 
-    getNowPrice(product) {
-        let nowPriceTxt = product.$('span[data-automation=product-price-now]').getText();
-        let nowPrice = this.getPrice(nowPriceTxt);
-        return nowPrice;
+    getPriceNow(product) {
+        let priceNowTxt = product.$('span[data-automation=product-price-now]').getText();
+        let priceNow = this.getPrice(priceNowTxt);
+        return priceNow;
     }
 
     getNumber(text) {
