@@ -2,11 +2,7 @@
 * main page object containing all methods, selectors and functionality
 * that is shared across all page objects
 */
-
-const username = 'mehdirahmani_1981@yahoo.com';
-const password = 'decvos-4wapji-muSruq';
-
-
+// let today, lastPageNumber;
 
 module.exports = class Page {
     /**

@@ -1,6 +1,7 @@
 const onSalePage = require('../pageobjects/sale-page');
 
-describe('Myer bargain finder', () => {
+describe('Myer bargain finder', function () {
+    this.retries(2);
 
     it('should find bargains in Men category', () => {
         const menPage = 'c/offers/men-739052-1',

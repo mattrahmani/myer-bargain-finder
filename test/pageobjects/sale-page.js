@@ -2,14 +2,14 @@ const { assert } = require('chai');
 const Page = require('./page');
 const fs = require('fs');
 const path = require('path');
-let items = 0, screenshotSubFolder, today, existingItems, lastPageNumber;
+let items = 0, screenshotSubFolder, existingItems, lastPageNumber, today, totalItems = 0;
 
-class onSalePage extends Page {
+class SalePage extends Page {
 
     get products() { return $$('div[data-automation=product]') };
     get nextBtn() { return $('a=Next') };
     get pageHeader() { return $('h1.css-1sfahi1') };
-    get totalItemsElement() { return $('span[data-automation=product-total]') };
+    get totalItemsContainer() { return $('span[data-automation=product-total]') };
     get paginateContainer() { return $('ol[data-automation=paginateContainer]') };
     get paginateContainerList() { return this.paginateContainer.$$('li') };
 
@@ -32,33 +32,18 @@ class onSalePage extends Page {
     }
 
     findBargains(category) {
-        this.getTodayDate();
-        if (this.paginateContainer.isExisting()) {
-            lastPageNumber = Number(this.paginateContainerList[this.paginateContainerList.length - 2].getText());
-        } else {
-            lastPageNumber = 1;
-        }
-        const totalItems = this.getNumber(this.totalItemsElement.getText());
-        let count = 1;
-        for (let i = 0; i < lastPageNumber; i++) {
-            console.log(category + ' --->> page ' + count + ' of ' + lastPageNumber);
+        this.getLastPageNumber();
+        totalItems = this.getNumber(this.totalItemsContainer.getText());
+        let currentPage = 1;
+
+        while (currentPage <= lastPageNumber) {
+            console.log(category + ' --->> page ' + currentPage + ' of ' + lastPageNumber);
             this.discountCalculator(category);
-            try {
-                if (this.nextBtn.waitForDisplayed({ timeout: 3000 })) {
-                    let oldUrl = browser.getUrl();
-                    this.nextBtn.click();
-                    this.pageHeader.waitForDisplayed({ timeout: 60000 });
-                    browser.waitUntil(() => oldUrl != browser.getUrl(), { timeout: 60000 });
-                    let newUrl = browser.getUrl();
-                    oldUrl = newUrl;
-                    count += 1;
-                    expect(newUrl).toContain('=' + count);
-                }
-                else {
-                    break;
-                }
-            } catch (error) {
-                break;
+            currentPage++;
+            if (this.nextBtn.isDisplayed()) {
+                this.nextBtn.waitForClickable();
+                this.nextBtn.click();
+                browser.waitUntil(() => browser.getUrl().includes('pageNumber=' + currentPage), { timeout: 60000 });
             }
         }
         assert.equal(totalItems, items, '=====>>> Some products are missing <<<=====');
@@ -67,10 +52,11 @@ class onSalePage extends Page {
 
     discountCalculator(category) {
         let productBrand, productName, priceNow, priceWas, percent, filePath, name, extraDiscount, discountRate, priceBlockHTML;
+        const today = this.getTodayDate();
 
         this.products.forEach(product => {
             try {
-                items += 1;
+                items++;
                 product.waitForDisplayed();
                 // product.scrollIntoView();
                 priceBlockHTML = product.$('div[data-automation=product-price]').getHTML();
@@ -128,6 +114,41 @@ class onSalePage extends Page {
         })
     }
 
+    getExistingItems() {
+        existingItems = [];
+        const directoryPath = path.join(screenshotSubFolder);
+        fs.readdir(directoryPath, function (err, files) {
+            files.forEach(function (file) {
+                let fileName = file.toString().split(' ').slice(1).join(' ');
+                existingItems.push(fileName);
+            });
+            // console.log('********: ' +existingItems.length);
+        });
+
+        return existingItems;
+    }
+
+    getNumber(text) {
+        let numberText = text.split(' ');
+        let textNumber = numberText[0].split(',').join('');
+        return Number(textNumber);
+    }
+
+    getTodayDate() {
+        let date = new Date();
+        today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
+        return today;
+    }
+
+    getLastPageNumber() {
+        if (this.paginateContainer.isExisting()) {
+            lastPageNumber = Number(this.paginateContainerList[this.paginateContainerList.length - 2].getText());
+        } else {
+            lastPageNumber = 1;
+        }
+        return lastPageNumber;
+    }
+
     getPrice(text) {
         let price;
         price = text.slice(1);
@@ -146,31 +167,6 @@ class onSalePage extends Page {
         let priceNow = this.getPrice(priceNowTxt);
         return priceNow;
     }
-
-    getNumber(text) {
-        let numberText = text.split(' ');
-        let textNumber = numberText[0].split(',').join('');
-        return Number(textNumber);
-    }
-
-    getTodayDate() {
-        let date = new Date();
-        today = date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
-    }
-
-    getExistingItems() {
-        existingItems = [];
-        const directoryPath = path.join(screenshotSubFolder);
-        fs.readdir(directoryPath, function (err, files) {
-            files.forEach(function (file) {
-                let fileName = file.toString().split(' ').slice(1).join(' ');
-                existingItems.push(fileName);
-            });
-            // console.log('********: ' +existingItems.length);
-        });
-
-        return existingItems;
-    }
 }
 
-module.exports = new onSalePage();
+module.exports = new SalePage();
