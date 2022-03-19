@@ -94,7 +94,7 @@ class SalePage extends Page {
                             filePath = screenshotSubFolder + today + '--> ' + percent + '% Off (Now $' + priceNow + ') ' + name + '.png';
                             if (!existingItems.includes(itemName)) {
                                 product.scrollIntoView();
-                                browser.waitUntil(() => product.$('img').isDisplayed());
+                                browser.waitUntil(() => product.$('img').isDisplayed(), {timeout: 30000});
                                 this.drawHighlight(product);
                                 browser.saveScreenshot(filePath);
                                 this.removeHighlight(product);
