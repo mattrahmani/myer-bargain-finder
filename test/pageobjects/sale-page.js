@@ -33,6 +33,7 @@ class SalePage extends Page {
 
     findBargains(category) {
         this.getLastPageNumber();
+        today = this.getTodayDate();
         totalItems = this.getNumber(this.totalItemsContainer.getText());
         let currentPage = 1;
 
@@ -52,7 +53,6 @@ class SalePage extends Page {
 
     discountCalculator(category) {
         let productBrand, productName, priceNow, priceWas, percent, filePath, name, extraDiscount, discountRate, priceBlockHTML;
-        const today = this.getTodayDate();
 
         this.products.forEach(product => {
             try {
