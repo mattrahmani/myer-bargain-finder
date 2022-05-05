@@ -47,7 +47,7 @@ class SalePage extends Page {
                 browser.waitUntil(() => browser.getUrl().includes('pageNumber=' + currentPage), { timeout: 60000 });
             }
         }
-        assert.equal(totalItems, items, '=====>>> Some products are missing <<<=====');
+        assert.equal(currentPage, lastPageNumber, '=====>>> Some products are missing <<<=====');
         console.log('=====>>> ' + category + ' bargains search is finished after scanning ' + totalItems + ' items <<<=====\n')
     }
 
