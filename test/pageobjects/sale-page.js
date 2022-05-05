@@ -47,7 +47,7 @@ class SalePage extends Page {
                 browser.waitUntil(() => browser.getUrl().includes('pageNumber=' + currentPage), { timeout: 60000 });
             }
         }
-        assert.equal(currentPage, lastPageNumber, '=====>>> Some products are missing <<<=====');
+        assert.equal(currentPage - 1, lastPageNumber, '=====>>> Some pages are missing <<<=====');
         console.log('=====>>> ' + category + ' bargains search is finished after scanning ' + totalItems + ' items <<<=====\n')
     }
 
@@ -94,7 +94,7 @@ class SalePage extends Page {
                             filePath = screenshotSubFolder + today + '--> ' + percent + '% Off (Now $' + priceNow + ') ' + name + '.png';
                             if (!existingItems.includes(itemName)) {
                                 product.scrollIntoView(false);
-                                browser.waitUntil(() => product.$('img').isDisplayed(), {timeout: 30000});
+                                browser.waitUntil(() => product.$('img').isDisplayed(), { timeout: 30000 });
                                 this.drawHighlight(product);
                                 browser.saveScreenshot(filePath);
                                 this.removeHighlight(product);
