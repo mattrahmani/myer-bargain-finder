@@ -95,6 +95,7 @@ class SalePage extends Page {
                             if (!existingItems.includes(itemName)) {
                                 product.scrollIntoView(false);
                                 browser.waitUntil(() => product.$('img').isDisplayed(), { timeout: 30000 });
+                                browser.pause(100);
                                 this.drawHighlight(product);
                                 browser.saveScreenshot(filePath);
                                 this.removeHighlight(product);
