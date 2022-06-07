@@ -17,17 +17,17 @@
   "author": "Matt Rahmani",
   "license": "ISC",
   "devDependencies": {
-    "@wdio/cli": "^7.19.6",
-    "@wdio/local-runner": "^7.19.5",
-    "@wdio/mocha-framework": "^7.19.5",
-    "@wdio/spec-reporter": "^7.19.5",
-    "@wdio/sync": "^7.19.5",
+    "@wdio/cli": "^7.20.1",
+    "@wdio/local-runner": "^7.20.1",
+    "@wdio/mocha-framework": "^7.20.0",
+    "@wdio/spec-reporter": "^7.20.0",
+    "@wdio/sync": "^7.20.1",
     "chai": "^4.3.6",
-    "chromedriver": "^100.0.0",
+    "chromedriver": "^102.0.0",
     "wdio-chromedriver-service": "^7.3.2",
     "wdio-screenshot": "^0.6.0"
   },
   "dependencies": {
-    "webdriverio": "^7.19.5"
+    "webdriverio": "^7.20.1"
   }
 }
