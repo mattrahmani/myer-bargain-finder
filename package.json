@@ -7,27 +7,28 @@
     "myer": "wdio wdio.conf.js",
     "women": "wdio wdio.conf.js --spec women",
     "home": "wdio wdio.conf.js --spec home",
-    "men": "wdio wdio.conf.js --spec men",
+    "men": "wdio wdio.conf.js --spec men-sale",
     "kids": "wdio wdio.conf.js --spec kids",
     "electrical": "wdio wdio.conf.js --spec electrical",
     "beauty": "wdio wdio.conf.js --spec beauty",
+    "sport": "wdio wdio.conf.js --spec sport",
     "toys": "wdio wdio.conf.js --spec toys"
   },
   "keywords": [],
   "author": "Matt Rahmani",
   "license": "ISC",
   "devDependencies": {
-    "@wdio/cli": "^7.20.1",
-    "@wdio/local-runner": "^7.20.1",
-    "@wdio/mocha-framework": "^7.20.0",
-    "@wdio/spec-reporter": "^7.20.0",
-    "@wdio/sync": "^7.20.1",
+    "@wdio/cli": "^7.25.1",
+    "@wdio/local-runner": "^7.25.1",
+    "@wdio/mocha-framework": "^7.25.1",
+    "@wdio/spec-reporter": "^7.25.1",
+    "@wdio/sync": "^7.25.1",
     "chai": "^4.3.6",
-    "chromedriver": "^102.0.0",
-    "wdio-chromedriver-service": "^7.3.2",
+    "chromedriver": "^106.0.1",
+    "wdio-chromedriver-service": "^8.0.0",
     "wdio-screenshot": "^0.6.0"
   },
   "dependencies": {
-    "webdriverio": "^7.20.1"
+    "webdriverio": "^7.25.1"
   }
 }

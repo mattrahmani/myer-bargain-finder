@@ -4,7 +4,7 @@ describe('Myer bargain finder', function () {
     this.retries(2);
 
     it('should find bargains in Men category', () => {
-        const menPage = 'c/offers/men-739052-1',
+        const menPage = 'c/offers/men-sales',
             category = 'men';
         discount = process.env.DISCOUNT || 70;
         console.log('Discount rate in ' + category + ' category --->>> ' + discount);
