@@ -22,7 +22,6 @@ class SalePage extends Page {
         let screenshotMainFolder = 'screenshots/';
         if (!fs.existsSync(screenshotMainFolder)) {
             fs.mkdirSync(screenshotMainFolder);
-            // return screenshotFolder;
         }
         screenshotSubFolder = 'screenshots/' + category + '/';
         if (!fs.existsSync(screenshotSubFolder)) {
@@ -58,7 +57,6 @@ class SalePage extends Page {
             try {
                 items++;
                 product.waitForDisplayed();
-                // product.scrollIntoView();
                 priceBlockHTML = product.$('div[data-automation=product-price]').getHTML();
 
                 if (priceBlockHTML.includes('product-price-was') && priceBlockHTML.includes('product-price-now')) {
@@ -95,10 +93,8 @@ class SalePage extends Page {
                             if (!existingItems.includes(itemName)) {
                                 product.scrollIntoView(false);
                                 browser.waitUntil(() => product.$('img').isDisplayed(), { timeout: 30000 });
-                                browser.pause(500);
-                                this.drawHighlight(product);
-                                browser.saveScreenshot(filePath);
-                                this.removeHighlight(product);
+                                browser.pause(1000);
+                                product.saveScreenshot(filePath);
                             }
                         }
                     }
@@ -123,7 +119,6 @@ class SalePage extends Page {
                 let fileName = file.toString().split(' ').slice(1).join(' ');
                 existingItems.push(fileName);
             });
-            // console.log('********: ' +existingItems.length);
         });
 
         return existingItems;
@@ -158,7 +153,6 @@ class SalePage extends Page {
 
     getPriceWas(product) {
         let priceWasTxt = product.$('span[data-automation=product-price-was]').getText();
-        // let priceWasTxt = product.$('p[data-automation=product-price-was] span:nth-child(2)').getText();
         let priceWas = this.getPrice(priceWasTxt);
         return priceWas;
     }

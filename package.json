@@ -24,9 +24,10 @@
     "@wdio/spec-reporter": "^7.25.4",
     "@wdio/sync": "^7.25.4",
     "chai": "^4.3.7",
-    "chromedriver": "^107.0.3",
+    "chromedriver": "^112.0.0",
     "wdio-chromedriver-service": "^8.0.0",
-    "wdio-screenshot": "^0.6.0"
+    "wdio-screenshot": "^0.6.0",
+    "wdio-selenium-standalone-service": "0.0.12"
   },
   "dependencies": {
     "webdriverio": "^7.25.4"
