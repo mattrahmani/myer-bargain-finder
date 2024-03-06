@@ -62,8 +62,10 @@ exports.config = {
         maxInstances: 3,
         //
         browserName: 'chrome',
+        browserVersion: '114.0',
         'goog:chromeOptions': {
-            args: ['--headless', '--disable-gpu','window-size=1366,768']
+            args: ['--headless', '--disable-gpu', 'window-size=2048,1152'],
+            binary: '/Applications/Google Chrome 114.app/Contents/MacOS/Google Chrome',  // Path to Chrome v114
         },
         acceptInsecureCerts: true
         // If outputDir is provided WebdriverIO can capture driver session logs

@@ -10,7 +10,6 @@ describe('Myer bargain finder', function () {
         console.log('Discount rate in ' + category + ' category --->>> ' + discount);
         onSalePage.open(kidsPage);
         onSalePage.confirmScreenshotFolderIsExisting(category);
-        onSalePage.getExistingItems();
         onSalePage.findBargains(category);
     });
 });

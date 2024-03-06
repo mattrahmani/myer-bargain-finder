@@ -12,7 +12,9 @@
     "electrical": "wdio wdio.conf.js --spec electrical",
     "beauty": "wdio wdio.conf.js --spec beauty",
     "sport": "wdio wdio.conf.js --spec sport",
-    "toys": "wdio wdio.conf.js --spec toys"
+    "toys": "wdio wdio.conf.js --spec toys",
+    "travel": "wdio wdio.conf.js --spec travel",
+    "clearance": "wdio wdio.conf.js --spec clearance"
   },
   "keywords": [],
   "author": "Matt Rahmani",
@@ -24,7 +26,7 @@
     "@wdio/spec-reporter": "^7.25.4",
     "@wdio/sync": "^7.25.4",
     "chai": "^4.3.7",
-    "chromedriver": "^112.0.0",
+    "chromedriver": "^114.0.1",
     "wdio-chromedriver-service": "^8.0.0",
     "wdio-screenshot": "^0.6.0",
     "wdio-selenium-standalone-service": "0.0.12"
